@@ -1,3 +1,5 @@
+require './app/middleware/error_handle_filter.rb'
+
 describe 'Integration Test' do
   let(:snake_expected){ { 'is_done' => true, 'order' => 1, 'task_title' => 'hoge' } }
   let(:camel_expected){ { 'isDone'  => true, 'order' => 1, 'taskTitle'  => 'hoge' } }
@@ -13,7 +15,7 @@ describe 'Integration Test' do
   include Rack::Test::Methods
 
   def app
-    @app ||= Mosscow
+    @app ||= ErrorHandleFilter.new(Mosscow)
   end
 
   # Please delete 'broken:true' after you create Rack camel <-> snake converting middleware
@@ -62,7 +64,6 @@ describe 'Integration Test' do
 
     context 'GET /error' do
       it 'returns 500 and error messages' do
-        pending('delete this line after you create Rack error catching module')
 
         get '/error'
 
@@ -76,7 +77,6 @@ describe 'Integration Test' do
       end
 
       it 'returns 500 and error messages' do
-        pending('delete this line after you create Rack error catching module')
 
         delete '/api/todos/hoge'
 

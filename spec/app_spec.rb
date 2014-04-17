@@ -153,7 +153,6 @@ describe 'app.rb' do
 
   context 'GET /error' do
     it 'returns 500' do
-      pending('delete this line after you create Rack error catching module')
 
       expect(
           proc { get '/error' }

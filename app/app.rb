@@ -43,7 +43,7 @@ class Mosscow < Sinatra::Base
   end
 
   get '/error' do
-    error_handle { fail }
+    fail
   end
 
   get '/' do
